@@ -1,0 +1,15 @@
+[project]
+id = "io.flashdrive.my-blog"
+name = "My Blog"
+version = "0.1"
+
+[build]
+include = [
+    "_site/"
+]
+
+[[build.buildpacks]]
+id = "heroku/ruby"
+
+[[build.buildpacks]]
+uri = "https://github.com/heroku/heroku-buildpack-static"
