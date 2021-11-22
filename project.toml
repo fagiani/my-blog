@@ -3,6 +3,9 @@ id = "io.flashdrive.my-blog"
 name = "My Blog"
 version = "0.1"
 
+[build]
+builder = "heroku/buildpacks:20"
+
 [[build.buildpacks]]
 uri = "urn:cnb:registry:heroku/ruby"
 
