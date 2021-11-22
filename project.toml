@@ -3,13 +3,8 @@ id = "io.flashdrive.my-blog"
 name = "My Blog"
 version = "0.1"
 
-[build]
-include = [
-    "_site/"
-]
+[[build.buildpacks]]
+uri = "urn:cnb:registry:heroku/ruby"
 
 [[build.buildpacks]]
-id = "heroku/ruby"
-
-[[build.buildpacks]]
-uri = "https://github.com/heroku/heroku-buildpack-static"
+uri = "urn:cnb:registry:fagiani/static"
