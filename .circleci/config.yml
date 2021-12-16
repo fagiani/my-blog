@@ -1,0 +1,35 @@
+version: 2.1
+
+orbs:
+  ruby: circleci/ruby@0.1.2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.7.4
+    environment:
+      BUNDLE_PATH: ~/repo/vendor/bundle
+    executor: ruby/default
+    steps:
+      - checkout
+      - run:
+          name: Install Jekyll dependencies
+          command: bundle install
+      - run:
+          name: Build Jekyll Site
+          command: bundle exec jekyll build
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - _site
+
+workflows:
+  test-build-deploy:
+    jobs:
+      - build
+      # - deploy:
+      #     requires:
+      #       - build
+      #     filters:
+      #       branches:
+      #         only: master
