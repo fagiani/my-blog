@@ -2,7 +2,8 @@ version: 2.1
 
 orbs:
   ruby: circleci/ruby@0.1.2
-
+  aws-cli: circleci/aws-cli@2.0.0
+  aws-s3: circleci/aws-s3@1.0.9
 jobs:
   build:
     docker:
@@ -34,9 +35,9 @@ jobs:
           aws-region: us-east-1
       - attach_workspace:
           at: ./
-      - run:
-          name: Install AWS CLI
-          command: pip install awscli --upgrade --user
+#       - run:
+#           name: Install AWS CLI
+#           command: pip install awscli --upgrade --user
       - run:
           name: Upload to s3
           command: ~/.local/bin/aws s3 sync ./_site s3://$S3_BUCKET_NAME/ --delete --acl public-read
