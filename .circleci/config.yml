@@ -23,7 +23,7 @@ jobs:
       - save_cache:
           key: rubygems-v1-{{ checksum "Gemfile.lock" }}
           paths:
-            - vendor/bundle
+            - ~/repo/vendor/bundle
       - run:
           name: Build Jekyll Site
           command: bundle exec jekyll build
