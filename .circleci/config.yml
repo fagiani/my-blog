@@ -19,10 +19,7 @@ jobs:
             - rubygems-v2-fallback
       - run:
           name: Install Current Bundler Version
-          command: |
-            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
-            source $BASH_ENV
-            gem install bundler
+          command: BUNDLER_VERSION=$(tail -1 Gemfile.lock | tr -d " ") gem install bundler
       - run:
           name: Install Jekyll dependencies
           command: bundle check || bundle install
