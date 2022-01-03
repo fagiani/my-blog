@@ -13,16 +13,19 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
+      - run:
+          name: Install current bundler version
+          command: gem install bundler:$(tail -1 Gemfile.lock | tr -d " ")
       - restore_cache:
           keys:
             - rubygems-v3-{{ checksum "Gemfile.lock" }}
             - rubygems-v3-fallback
       - run:
-          name: Install current bundler version
-          command: gem install bundler:$(tail -1 Gemfile.lock | tr -d " ")
-      - run:
           name: Install Jekyll dependencies
           command: bundle check || bundle install --jobs 4
+      - run:
+          name: Clean bundle sources
+          command: bundle clean --force
       - save_cache:
           key: rubygems-v3-{{ checksum "Gemfile.lock" }}
           paths:
