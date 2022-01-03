@@ -19,7 +19,7 @@ jobs:
             - rubygems-v2-fallback
       - run:
           name: Install current bundler version
-          command: gem install bundler -v $(tail -1 Gemfile.lock | tr -d " ")
+          command: gem install bundler:$(tail -1 Gemfile.lock | tr -d " ")
       - run:
           name: Install Jekyll dependencies
           command: bundle check || bundle install --jobs 4
