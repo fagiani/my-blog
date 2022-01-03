@@ -22,10 +22,15 @@ jobs:
             - rubygems-v4-fallback
       - run:
           name: Install Jekyll dependencies
-          command: bundle check || bundle install --jobs 4
+          command: bundle check || bundle install --jobs 4 --retry 3
       - run:
-          name: Clean bundle sources
-          command: bundle clean --force
+          name: HTMLProofer tests
+          command: |
+            bundle exec htmlproofer ./_site \
+              --allow-hash-href \
+              --check-favicon  \
+              --check-html \
+              --disable-external
       - save_cache:
           key: rubygems-v4-{{ checksum "Gemfile.lock" }}
           paths:
