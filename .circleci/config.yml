@@ -23,6 +23,13 @@ jobs:
       - run:
           name: Install Jekyll dependencies
           command: bundle check || bundle install --jobs 4 --retry 3
+      - save_cache:
+          key: rubygems-v4-{{ checksum "Gemfile.lock" }}
+          paths:
+            - ~/repo/vendor/bundle
+      - run:
+          name: Build Jekyll Site
+          command: bundle exec jekyll build
       - run:
           name: HTMLProofer tests
           command: |
@@ -31,13 +38,6 @@ jobs:
               --check-favicon  \
               --check-html \
               --disable-external
-      - save_cache:
-          key: rubygems-v4-{{ checksum "Gemfile.lock" }}
-          paths:
-            - ~/repo/vendor/bundle
-      - run:
-          name: Build Jekyll Site
-          command: bundle exec jekyll build
       - persist_to_workspace:
           root: ./
           paths:
