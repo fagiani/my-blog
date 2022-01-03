@@ -18,8 +18,8 @@ jobs:
           command: gem install bundler:$(tail -1 Gemfile.lock | tr -d " ")
       - restore_cache:
           keys:
-            - rubygems-v3-{{ checksum "Gemfile.lock" }}
-            - rubygems-v3-fallback
+            - rubygems-v4-{{ checksum "Gemfile.lock" }}
+            - rubygems-v4-fallback
       - run:
           name: Install Jekyll dependencies
           command: bundle check || bundle install --jobs 4
@@ -27,7 +27,7 @@ jobs:
           name: Clean bundle sources
           command: bundle clean --force
       - save_cache:
-          key: rubygems-v3-{{ checksum "Gemfile.lock" }}
+          key: rubygems-v4-{{ checksum "Gemfile.lock" }}
           paths:
             - ~/repo/vendor/bundle
       - run:
